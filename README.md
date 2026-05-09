@@ -93,7 +93,7 @@ docker-compose up -d --build
 ## 7. Autores
 
 * 
-**Dupla:** Benjamín Ruz & [Nombre de tu compañero].
+**Dupla:** Benjamín Ruz & Nathan Gutierrez.
 
 
 * 
