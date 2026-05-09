@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 
+        uses: actions/checkout@v4
 
       - name: Deploy to Server via SSH
         uses: appleboy/ssh-action@master
@@ -18,26 +18,17 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           script: |
-            # Entrar al home
-            cd ~
-            
-            if [ ! -d "Repo_Backends" ]; then
+            cd ~/
+            if [ ! -d "repo-back-intro-dev" ]; then
               git clone https://github.com/bruz-11/repo-back-intro-dev.git
             fi
-            
-            cd Repo_Backends
-            
-            git config --global --add safe.directory /home/ubuntu/Repo_Backends
-            
-          
+            cd repo-back-intro-dev
+            git config --global --add safe.directory /home/ubuntu/repo-back-intro-dev
             git fetch --all
             git reset --hard origin/master
-            
             echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" > .env
             echo "DB_USER=postgres" >> .env
             echo "DB_NAME=innovatech_db" >> .env
             echo "FRONT_IMAGE=bruz11/front-despacho:latest" >> .env
-            
-          
             docker-compose down
             docker-compose up -d --build
